@@ -8,6 +8,7 @@
     "react-dom": "^16.4.2"
   },
   "devDependencies": {
+    "@storybook/react": "alpha",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
@@ -25,7 +26,8 @@
     "start": "webpack-dev-server --open --mode development",
     "dev:webpack": "webpack --config webpack.config.js --mode development",
     "build:webpack": "webpack --config webpack.config.js --mode production",
-    "dev:babel": "babel src/App.js -o build-babel/bundle.js"
+    "dev:babel": "babel src/App.js -o build-babel/bundle.js",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "author": "",
   "license": "ISC"
