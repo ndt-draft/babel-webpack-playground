@@ -1,7 +1,8 @@
 import React from 'react'
+import style from './App.css'
 
 const App = () => (
-  <div>App</div>
+  <div className="app">App</div>
 )
 
 export default App
