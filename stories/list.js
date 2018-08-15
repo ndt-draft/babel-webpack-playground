@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import List from '../src/components/List'
+import List from 'ndt-react-list'
 
 const posts = [
   {
