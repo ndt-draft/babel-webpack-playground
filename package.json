@@ -27,6 +27,7 @@
     "dev:webpack": "webpack --config webpack.config.js --mode development",
     "build:webpack": "webpack --config webpack.config.js --mode production",
     "dev:babel": "babel src/App.js -o build-babel/bundle.js",
+    "server": "babel-node server/server.js",
     "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "author": "",
