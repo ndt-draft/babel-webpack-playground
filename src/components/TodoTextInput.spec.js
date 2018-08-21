@@ -79,3 +79,14 @@ test('fires onSave on blue if not new', () => {
 
   expect(onSave).toHaveBeenCalledWith(value)
 })
+
+test('does not fire onSave on blur if new', () => {
+  const onSave = jest.fn()
+  const wrapper = shallow(
+    <TodoTextInput newTodo onSave={onSave}/>
+  )
+
+  wrapper.simulate('blur')
+
+  expect(onSave).not.toBeCalled()
+})

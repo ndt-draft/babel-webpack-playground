@@ -37,6 +37,9 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest"
   },
+  "jest": {
+    "collectCoverage": true
+  },
   "author": "",
   "license": "ISC"
 }
