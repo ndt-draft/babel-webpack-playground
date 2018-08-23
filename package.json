@@ -4,6 +4,7 @@
   "description": "",
   "main": "source.js",
   "dependencies": {
+    "bootstrap": "^4.1.3",
     "ndt-react-list": "^1.0.2",
     "postcss-loader": "^3.0.0",
     "precss": "^3.1.2",
@@ -26,6 +27,7 @@
     "jest": "^23.5.0",
     "mini-css-extract-plugin": "^0.4.1",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "postcss-import": "^12.0.0",
     "react-test-renderer": "^16.4.2",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",

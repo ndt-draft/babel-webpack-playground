@@ -42,9 +42,24 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.css$/,
+          exclude: /\.module.css$/,
           use: [
             MiniCssExtractPlugin.loader,
             "css-loader",
+            "postcss-loader"
+          ]
+        },
+        {
+          test: /\.module.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: {
+                modules: true,
+                localIdentName: '[folder]__[local]--[hash:base64:5]'
+              }
+            },
             "postcss-loader"
           ]
         }
