@@ -1,3 +1,14 @@
+$background-color: yellow;
+$list-color: red;
+
 .app {
-  background-color: yellow;
+  background-color: $background-color;
+
+  .custom-list {
+    color: $list-color;
+  }
+}
+
+.input::placeholder {
+  color: blue;
 }

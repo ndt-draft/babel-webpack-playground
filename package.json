@@ -5,6 +5,8 @@
   "main": "source.js",
   "dependencies": {
     "ndt-react-list": "^1.0.2",
+    "postcss-loader": "^3.0.0",
+    "precss": "^3.1.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
   },
