@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
@@ -14,6 +15,9 @@ module.exports = (env, argv) => {
       path: path.resolve(__dirname, "build-webpack"),
       filename: "bundle.js",
     },
+    // @see https://webpack.js.org/configuration/devtool/
+    // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
+    // devtool: 'cheap-module-eval-source-map',
     optimization: {
       // @see https://github.com/webpack-contrib/mini-css-extract-plugin#minimizing-for-production
       minimizer: [
@@ -42,9 +46,42 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.css$/,
+          exclude: /\.module.css$/,
           use: [
             MiniCssExtractPlugin.loader,
-            "css-loader"
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: "postcss-loader",
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: "sass-loader",
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        },
+        {
+          test: /\.module.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: {
+                modules: true,
+                localIdentName: '[folder]__[local]--[hash:base64:5]'
+              }
+            },
+            "postcss-loader",
+            "sass-loader"
           ]
         }
       ]
@@ -57,6 +94,10 @@ module.exports = (env, argv) => {
       new MiniCssExtractPlugin({
         filename: "[name].css",
         chunkFilename: "[id].css"
+      }),
+      // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
+      new webpack.SourceMapDevToolPlugin({
+        filename: "[file].map"
       })
     ]
   }

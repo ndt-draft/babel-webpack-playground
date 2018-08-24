@@ -4,7 +4,10 @@
   "description": "",
   "main": "source.js",
   "dependencies": {
+    "bootstrap": "^4.1.3",
     "ndt-react-list": "^1.0.2",
+    "postcss-loader": "^3.0.0",
+    "precss": "^3.1.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2"
   },
@@ -23,8 +26,10 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.5.0",
     "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.3",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "react-test-renderer": "^16.4.2",
+    "sass-loader": "^7.1.0",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"

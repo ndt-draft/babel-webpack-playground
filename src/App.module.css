@@ -1,0 +1,17 @@
+@import '~bootstrap/scss/mixins/_clearfix.scss';
+
+$background-color: yellow;
+$list-color: red;
+
+.app {
+  background-color: $background-color;
+  @include clearfix();
+
+  .custom-list {
+    color: $list-color;
+  }
+}
+
+.input::placeholder {
+  color: blue;
+}

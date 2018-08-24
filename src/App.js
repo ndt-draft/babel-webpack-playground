@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './App.css'
+import styles from './App.module.css'
 import List from 'ndt-react-list'
 
 const posts = [
@@ -14,8 +14,16 @@ const posts = [
 ]
 
 const App = () => (
-  <div className="app">
+  <div className={styles.app}>
     <List collection={posts} titleKey="title" />
+    <ul className={styles['custom-list']}>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <div className={styles['input-wrapper']}>
+      <input className={styles['input']} placeholder="Enter your text"/>
+    </div>
   </div>
 )
 
