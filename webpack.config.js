@@ -4,6 +4,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = (env, argv) => {
   // @see https://github.com/webpack/webpack/issues/6460#issuecomment-364286147
@@ -13,7 +14,7 @@ module.exports = (env, argv) => {
     entry: "./src/index.js", 
     output: {
       path: path.resolve(__dirname, "build-webpack"),
-      filename: "bundle.js",
+      filename: "[name].[hash].js",
     },
     // @see https://webpack.js.org/configuration/devtool/
     // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
@@ -92,13 +93,16 @@ module.exports = (env, argv) => {
         filename: "./index.html"
       }),
       new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css"
+        filename: "[name].[hash].css",
+        chunkFilename: "[id].[hash].css"
       }),
       // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
       new webpack.SourceMapDevToolPlugin({
         filename: "[file].map"
-      })
+      }),
+      // clean build folder before build
+      // @see https://github.com/johnagan/clean-webpack-plugin#usage
+      new CleanWebpackPlugin(['build-webpack'])
     ]
   }
 }
