@@ -27,7 +27,12 @@ module.exports = (env, argv) => {
           parallel: true,
           sourceMap: true // set to true if you want JS source maps
         }),
-        new OptimizeCSSAssetsPlugin({})
+        // @see https://github.com/NMFR/optimize-css-assets-webpack-plugin/issues/71#issuecomment-412143710
+        new OptimizeCSSAssetsPlugin({
+          cssProcessorOptions: {
+            map: true
+          }
+        })
       ]
     },
     module: {
