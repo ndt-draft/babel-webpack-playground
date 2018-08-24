@@ -1,14 +1,43 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebPackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = (env, argv) => {
   // @see https://github.com/webpack/webpack/issues/6460#issuecomment-364286147
   const PROD_MODE = argv.mode === 'production'
+  console.log(argv.mode)
+
+  const plugins = [
+    new HtmlWebPackPlugin({
+      template: "./public/index.html",
+      filename: "./index.html",
+      // @see https://github.com/jantimon/html-webpack-plugin#options
+      // @see https://github.com/kangax/html-minifier#options-quick-reference
+      // @see https://github.com/jantimon/html-webpack-plugin/issues/363#issue-162800498
+      minify: {
+        collapseWhitespace: true,
+        preserveLineBreaks: PROD_MODE ? false : true
+      }
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].[hash].css",
+      chunkFilename: "[id].[hash].css"
+    }),
+    // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
+    new webpack.SourceMapDevToolPlugin({
+      filename: "[file].map"
+    })
+  ]
+
+  // clean build folder before build
+  // @see https://github.com/johnagan/clean-webpack-plugin#usage
+  if (PROD_MODE) {
+    plugins.push(new CleanWebpackPlugin(['build-webpack']))
+  }
 
   return {
     entry: "./src/index.js", 
@@ -41,14 +70,6 @@ module.exports = (env, argv) => {
           test: /\.js$/,
           exclude: /node_modules/,
           loader: "babel-loader"
-        },
-        {
-          test: /\.html$/,
-          use: [
-            {
-              loader: "html-loader"
-            }
-          ]
         },
         {
           test: /\.css$/,
@@ -92,22 +113,6 @@ module.exports = (env, argv) => {
         }
       ]
     },
-    plugins: [
-      new HtmlWebPackPlugin({
-        template: "./public/index.html",
-        filename: "./index.html"
-      }),
-      new MiniCssExtractPlugin({
-        filename: "[name].[hash].css",
-        chunkFilename: "[id].[hash].css"
-      }),
-      // @see https://github.com/webpack-contrib/mini-css-extract-plugin/issues/29#issuecomment-382424129
-      new webpack.SourceMapDevToolPlugin({
-        filename: "[file].map"
-      }),
-      // clean build folder before build
-      // @see https://github.com/johnagan/clean-webpack-plugin#usage
-      new CleanWebpackPlugin(['build-webpack'])
-    ]
+    plugins: plugins
   }
 }
